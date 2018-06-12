@@ -25,13 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainui.cpp
+        mainui.cpp \
+    about.cpp
 
 HEADERS += \
-        mainui.h
+        mainui.h \
+    about.h
 
 FORMS += \
-        mainui.ui
+        mainui.ui \
+    about.ui
 
 DISTFILES += \
     .gitignore \
