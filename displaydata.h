@@ -26,6 +26,7 @@ private:
     QString m_wallet;
     QString m_poolApi;
     QString m_poolAddr;
+    QString m_currency;
 };
 
 #endif // DISPLAYDATA_H

@@ -1,6 +1,5 @@
 #include "displaydata.h"
 #include "ui_displaydata.h"
-#include <QDebug>
 
 DisplayData::DisplayData(QString name, QWidget *parent) :
     QMainWindow(parent),
@@ -16,6 +15,7 @@ DisplayData::DisplayData(QString name, QWidget *parent) :
     m_wallet = settings.value(name+"/wallet").toString();
     m_poolAddr = settings.value(name+"/addr").toString();
     m_poolApi = settings.value(name+"/api").toString();
+    m_currency = settings.value(name+"/currency").toString();
 
     manager = new QNetworkAccessManager;
     this->downloadPoolData();
@@ -33,10 +33,10 @@ void DisplayData::downloadResult(QNetworkReply* reply)
     QJsonObject json = doc.object();
 
     if (json["status"] == true) {
-        ui->lb_wallet->setText(json["data"].toObject()["account"].toString());
+        ui->lb_wallet->setText("Wallet: "+json["data"].toObject()["account"].toString());
         ui->lb_current_hashrate->setText(json["data"].toObject()["hashrate"].toString()+" H/s");
-        ui->lb_balance->setText(json["data"].toObject()["balance"].toString());
-        ui->lb_unconfirmed_balance->setText(json["data"].toObject()["unconfirmed_balance"].toString());
+        ui->lb_balance->setText(json["data"].toObject()["balance"].toString()+" "+m_currency);
+        ui->lb_unconfirmed_balance->setText(json["data"].toObject()["unconfirmed_balance"].toString()+" "+m_currency);
 
         QJsonArray workers = json["data"].toObject()["workers"].toArray();
         ui->tbl_worker->setRowCount(workers.count());

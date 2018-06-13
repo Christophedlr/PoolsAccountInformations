@@ -26,7 +26,7 @@ void SelectPool::readPools()
         int pos = list[i].indexOf('/');
         QString element = list[i];
         ui->list_pools->addItem(element.left(pos));
-        i = i+2;
+        i = i+3;
     }
 }
 

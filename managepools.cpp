@@ -28,7 +28,6 @@ ManagePools::ManagePools(QWidget *parent) :
     this->readPools();
     connect(ui->btn_save, SIGNAL(clicked(bool)), this, SLOT(savePool()));
     connect(ui->btn_delete, SIGNAL(clicked(bool)), this, SLOT(deletePool()));
-    //connect(ui->list_pools, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(activateDeleteBtn(bool)));
 }
 
 /**
@@ -41,6 +40,7 @@ void ManagePools::savePool()
     settings.setValue(ui->edit_name->text()+"/addr", ui->edit_pool_addr->text());
     settings.setValue(ui->edit_name->text()+"/api", ui->edit_pool_api_addr->text());
     settings.setValue(ui->edit_name->text()+"/wallet", ui->edit_wallet_addr->text());
+    settings.setValue(ui->edit_name->text()+"/currency", ui->edit_currency->text());
 
     this->readPools();
 }
@@ -52,14 +52,13 @@ void ManagePools::readPools()
 {
     ui->list_pools->clear();
     QSettings settings("christophedlr", "PoolsAccountInformations");
-
     QStringList list = settings.allKeys();
 
     for (int i = 0; i < list.count(); ++i) {
         int pos = list[i].indexOf('/');
         QString element = list[i];
         ui->list_pools->addItem(element.left(pos));
-        i = i+2;
+        i = i+3;
     }
 }
 
@@ -72,10 +71,7 @@ void ManagePools::deletePool()
         QSettings settings("christophedlr", "PoolsAccountInformations");
         QString name = ui->list_pools->currentItem()->text();
 
-        settings.remove(name+"/addr");
-        settings.remove(name+"/api");
-        settings.remove(name+"/wallet");
-
+        settings.remove(name);
         this->readPools();
     }
 }
