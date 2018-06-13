@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,17 +27,23 @@ SOURCES += \
         main.cpp \
         mainui.cpp \
     about.cpp \
-    managepools.cpp
+    managepools.cpp \
+    displaydata.cpp \
+    selectpool.cpp
 
 HEADERS += \
         mainui.h \
     about.h \
-    managepools.h
+    managepools.h \
+    displaydata.h \
+    selectpool.h
 
 FORMS += \
         mainui.ui \
     about.ui \
-    managepools.ui
+    managepools.ui \
+    displaydata.ui \
+    selectpool.ui
 
 DISTFILES += \
     .gitignore \

@@ -36,6 +36,7 @@ public:
 public slots:
     void openAboutWindow();
     void openManagePools();
+    void openSelectPool();
 
 private:
     Ui::MainUi *ui;

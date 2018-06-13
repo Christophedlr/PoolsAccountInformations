@@ -20,6 +20,7 @@
 #include "ui_mainui.h"
 #include "about.h"
 #include "managepools.h"
+#include "selectpool.h"
 
 MainUi::MainUi(QWidget *parent) :
     QWidget(parent),
@@ -29,6 +30,7 @@ MainUi::MainUi(QWidget *parent) :
 
     connect(ui->btn_about, SIGNAL(clicked(bool)), this, SLOT(openAboutWindow()));
     connect(ui->btn_manage_pools, SIGNAL(clicked(bool)), this, SLOT(openManagePools()));
+    connect(ui->btn_sel_saved_pool, SIGNAL(clicked(bool)), this, SLOT(openSelectPool()));
 }
 
 /**
@@ -47,6 +49,15 @@ void MainUi::openManagePools()
 {
     ManagePools* poolsWindow = new ManagePools();
     poolsWindow->show();
+}
+
+/**
+ * @brief Display select pool window
+ */
+void MainUi::openSelectPool()
+{
+    SelectPool* selectPool = new SelectPool();
+    selectPool->show();
 }
 
 MainUi::~MainUi()
