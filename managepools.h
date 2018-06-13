@@ -16,40 +16,31 @@
  *  along with PoolsAccountInformations.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "mainui.h"
-#include "ui_mainui.h"
-#include "about.h"
-#include "managepools.h"
+#ifndef MANAGEPOOLS_H
+#define MANAGEPOOLS_H
 
-MainUi::MainUi(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::MainUi)
-{
-    ui->setupUi(this);
+#include <QWidget>
+#include <QSettings>
 
-    connect(ui->btn_about, SIGNAL(clicked(bool)), this, SLOT(openAboutWindow()));
-    connect(ui->btn_manage_pools, SIGNAL(clicked(bool)), this, SLOT(openManagePools()));
+namespace Ui {
+class ManagePools;
 }
 
-/**
- * @brief Display about window
- */
-void MainUi::openAboutWindow()
+class ManagePools : public QWidget
 {
-    About* aboutWindow = new About();
-    aboutWindow->show();
-}
+    Q_OBJECT
 
-/**
- * @brief Display manage pools window
- */
-void MainUi::openManagePools()
-{
-    ManagePools* poolsWindow = new ManagePools();
-    poolsWindow->show();
-}
+public:
+    explicit ManagePools(QWidget *parent = 0);
+    void readPools();
+    ~ManagePools();
 
-MainUi::~MainUi()
-{
-    delete ui;
-}
+public slots:
+    void savePool();
+    void deletePool();
+
+private:
+    Ui::ManagePools *ui;
+};
+
+#endif // MANAGEPOOLS_H

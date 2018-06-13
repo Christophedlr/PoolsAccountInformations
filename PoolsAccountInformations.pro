@@ -26,15 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainui.cpp \
-    about.cpp
+    about.cpp \
+    managepools.cpp
 
 HEADERS += \
         mainui.h \
-    about.h
+    about.h \
+    managepools.h
 
 FORMS += \
         mainui.ui \
-    about.ui
+    about.ui \
+    managepools.ui
 
 DISTFILES += \
     .gitignore \
