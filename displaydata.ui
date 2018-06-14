@@ -238,7 +238,10 @@ color: blue;</string>
         <item>
          <widget class="QTableWidget" name="tbl_worker">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed</set>
           </property>
           <property name="columnCount">
            <number>4</number>
@@ -264,10 +267,23 @@ color: blue;</string>
          </widget>
         </item>
         <item>
-         <widget class="QColumnView" name="cview_payments">
+         <widget class="QTableWidget" name="tbl_payments">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ExtendedSelection</enum>
+          </property>
+          <property name="columnCount">
+           <number>4</number>
+          </property>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
          </widget>
         </item>
        </layout>
