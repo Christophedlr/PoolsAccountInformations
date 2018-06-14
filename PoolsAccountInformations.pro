@@ -29,14 +29,16 @@ SOURCES += \
     about.cpp \
     managepools.cpp \
     displaydata.cpp \
-    selectpool.cpp
+    selectpool.cpp \
+    managers/nanopoolmanager.cpp
 
 HEADERS += \
         mainui.h \
     about.h \
     managepools.h \
     displaydata.h \
-    selectpool.h
+    selectpool.h \
+    managers/nanopoolmanager.h
 
 FORMS += \
         mainui.ui \

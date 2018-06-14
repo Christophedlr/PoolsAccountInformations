@@ -26,8 +26,8 @@ ManagePools::ManagePools(QWidget *parent) :
     ui->setupUi(this);
 
     this->readPools();
-    connect(ui->btn_save, SIGNAL(clicked(bool)), this, SLOT(savePool()));
-    connect(ui->btn_delete, SIGNAL(clicked(bool)), this, SLOT(deletePool()));
+    connect(ui->btn_nanopool_save, SIGNAL(clicked(bool)), this, SLOT(savePool()));
+    connect(ui->btn_nanopool_delete, SIGNAL(clicked(bool)), this, SLOT(deletePool()));
 }
 
 /**
@@ -35,13 +35,18 @@ ManagePools::ManagePools(QWidget *parent) :
  */
 void ManagePools::savePool()
 {
-    QSettings settings("christophedlr", "PoolsAccountInformations");
+    QStringList data;
 
-    settings.setValue(ui->edit_name->text()+"/addr", ui->edit_pool_addr->text());
-    settings.setValue(ui->edit_name->text()+"/api", ui->edit_pool_api_addr->text());
-    settings.setValue(ui->edit_name->text()+"/wallet", ui->edit_wallet_addr->text());
-    settings.setValue(ui->edit_name->text()+"/currency", ui->edit_currency->text());
+    if (ui->tabWidget->currentIndex() == 0) {
+        data
+                << ui->edit_nanopool_name->text()
+                << ui->edit_nanopool_wallet->text()
+                << ui->edit_nanopool_currency->text()
+                << ui->edit_nanopool_addr->text()
+                << ui->edit_nanopool_api->text();
+    }
 
+    nanopool.save(data);
     this->readPools();
 }
 
@@ -50,15 +55,9 @@ void ManagePools::savePool()
  */
 void ManagePools::readPools()
 {
-    ui->list_pools->clear();
-    QSettings settings("christophedlr", "PoolsAccountInformations");
-    QStringList list = settings.allKeys();
-
-    for (int i = 0; i < list.count(); ++i) {
-        int pos = list[i].indexOf('/');
-        QString element = list[i];
-        ui->list_pools->addItem(element.left(pos));
-        i = i+3;
+    if (ui->tabWidget->currentIndex() == 0) {
+        QSettings settings("christophedlr", "PoolsAccountInformations");
+        nanopool.read(settings.allKeys(), ui->list_nanopool);
     }
 }
 
@@ -67,13 +66,16 @@ void ManagePools::readPools()
  */
 void ManagePools::deletePool()
 {
-    if (ui->list_pools->currentRow() > -1) {
-        QSettings settings("christophedlr", "PoolsAccountInformations");
-        QString name = ui->list_pools->currentItem()->text();
+    QSettings settings("christophedlr", "PoolsAccountInformations");
 
-        settings.remove(name);
-        this->readPools();
+    if (ui->tabWidget->currentIndex() == 0) {
+        if (ui->list_nanopool->currentRow() > -1) {
+            QString name = ui->list_nanopool->currentItem()->text();
+        }
     }
+
+    settings.remove(name);
+    this->readPools();
 }
 
 ManagePools::~ManagePools()

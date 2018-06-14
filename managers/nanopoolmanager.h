@@ -16,33 +16,19 @@
  *  along with PoolsAccountInformations.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MANAGEPOOLS_H
-#define MANAGEPOOLS_H
+#ifndef NANOPOOLMANAGER_H
+#define NANOPOOLMANAGER_H
 
-#include <QWidget>
+#include <QListWidget>
 #include <QSettings>
-#include "managers/nanopoolmanager.h"
 
-namespace Ui {
-class ManagePools;
-}
 
-class ManagePools : public QWidget
+class NanopoolManager
 {
-    Q_OBJECT
-
 public:
-    explicit ManagePools(QWidget *parent = 0);
-    void readPools();
-    ~ManagePools();
-
-public slots:
-    void savePool();
-    void deletePool();
-
-private:
-    Ui::ManagePools *ui;
-    NanopoolManager nanopool;
+    NanopoolManager();
+    void save(QStringList data);
+    void read(QStringList list, QListWidget *widget);
 };
 
-#endif // MANAGEPOOLS_H
+#endif // NANOPOOLMANAGER_H
