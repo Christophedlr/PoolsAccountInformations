@@ -41,6 +41,7 @@ void SelectPool::openDisplayData()
         QSettings settings("christophedlr", "PoolsAccountInformations");
         NanopoolDisplay* nanopoolDisplay = new NanopoolDisplay(ui->list_pools->currentItem()->text());
         nanopoolDisplay->show();
+        this->close();
     }
 }
 
