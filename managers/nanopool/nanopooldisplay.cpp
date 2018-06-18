@@ -2,7 +2,7 @@
 #include "ui_nanopooldisplay.h"
 
 NanopoolDisplay::NanopoolDisplay(QString name, QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::NanopoolDisplay)
 {
     QStringList list;
@@ -23,12 +23,13 @@ NanopoolDisplay::NanopoolDisplay(QString name, QWidget *parent) :
     m_pool = settings.value(name+"/pool").toString();
 
     manager = new QNetworkAccessManager;
+    status = new QLabel(this);
+    ui->statusbar->addWidget(status);
 
-    if (m_pool == "Nanopool") {
-        nanopool = new NanopoolManager();
-
-        this->downloadPoolData();
-    }
+    cyclicTime = new QTimer(this);
+    connect(cyclicTime, SIGNAL(timeout()), this, SLOT(downloadPoolData()));
+    this->downloadPoolData();
+    cyclicTime->start(600000);
 }
 
 void NanopoolDisplay::downloadPoolData()
@@ -37,6 +38,9 @@ void NanopoolDisplay::downloadPoolData()
     manager->get(QNetworkRequest(QUrl(m_api+"/user/"+m_wallet)));
     manager->get(QNetworkRequest(QUrl(m_api+"/payments/"+m_wallet)));
     manager->get(QNetworkRequest(QUrl(m_api+"/usersettings/"+m_wallet)));
+
+    QDateTime time = QDateTime::currentDateTime();
+    status->setText("Last update: "+time.toString(Qt::SystemLocaleShortDate));
 }
 
 void NanopoolDisplay::downloadResult(QNetworkReply* reply)
@@ -126,5 +130,7 @@ void NanopoolDisplay::paymentsInfo(QJsonArray payments)
 
 NanopoolDisplay::~NanopoolDisplay()
 {
+    delete status;
+    delete cyclicTime;
     delete ui;
 }
