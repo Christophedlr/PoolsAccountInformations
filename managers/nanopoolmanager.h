@@ -21,14 +21,28 @@
 
 #include <QListWidget>
 #include <QSettings>
+#include <QObject>
+#include <QtNetwork>
 
-
-class NanopoolManager
+class NanopoolManager: public QObject
 {
+
 public:
     NanopoolManager();
     void save(QStringList data);
     void read(QStringList list, QListWidget *widget);
+    void downloadSignal(QString pool, QString wallet, QString api, QString addr, QString currency, QNetworkAccessManager* manager);
+    ~NanopoolManager();
+
+public slots:
+    void downloadResult(QNetworkReply* reply);
+
+private:
+    QString m_pool;
+    QString m_wallet;
+    QString m_api;
+    QString m_addr;
+    QString m_currency;
 };
 
 #endif // NANOPOOLMANAGER_H

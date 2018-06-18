@@ -28,24 +28,24 @@ SOURCES += \
         mainui.cpp \
     about.cpp \
     managepools.cpp \
-    displaydata.cpp \
     selectpool.cpp \
-    managers/nanopoolmanager.cpp
+    managers/nanopoolmanager.cpp \
+    managers/nanopool/nanopooldisplay.cpp
 
 HEADERS += \
         mainui.h \
     about.h \
     managepools.h \
-    displaydata.h \
     selectpool.h \
-    managers/nanopoolmanager.h
+    managers/nanopoolmanager.h \
+    managers/nanopool/nanopooldisplay.h
 
 FORMS += \
         mainui.ui \
     about.ui \
     managepools.ui \
-    displaydata.ui \
-    selectpool.ui
+    selectpool.ui \
+    managers/nanopool/nanopooldisplay.ui
 
 DISTFILES += \
     .gitignore \

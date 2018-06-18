@@ -1,6 +1,6 @@
 #include "selectpool.h"
 #include "ui_selectpool.h"
-#include "displaydata.h"
+#include "managers/nanopool/nanopoolDisplay.h"
 
 SelectPool::SelectPool(QWidget *parent) :
     QWidget(parent),
@@ -25,15 +25,23 @@ void SelectPool::readPools()
     for (int i = 0; i < list.count(); ++i) {
         int pos = list[i].indexOf('/');
         QString element = list[i];
+        m_pool = settings.value(element.left(pos)+"/pool").toString();
+
         ui->list_pools->addItem(element.left(pos));
-        i = i+3;
+        i = i+4;
     }
 }
 
 void SelectPool::openDisplayData()
 {
-    DisplayData* displayData = new DisplayData(ui->list_pools->currentItem()->text());
-    displayData->show();
+    /*DisplayData* displayData = new DisplayData(ui->list_pools->currentItem()->text());
+    displayData->show();*/
+
+    if (m_pool == "Nanopool") {
+        QSettings settings("christophedlr", "PoolsAccountInformations");
+        NanopoolDisplay* nanopoolDisplay = new NanopoolDisplay(ui->list_pools->currentItem()->text());
+        nanopoolDisplay->show();
+    }
 }
 
 SelectPool::~SelectPool()

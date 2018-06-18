@@ -67,10 +67,11 @@ void ManagePools::readPools()
 void ManagePools::deletePool()
 {
     QSettings settings("christophedlr", "PoolsAccountInformations");
+    QString name;
 
     if (ui->tabWidget->currentIndex() == 0) {
         if (ui->list_nanopool->currentRow() > -1) {
-            QString name = ui->list_nanopool->currentItem()->text();
+            name = ui->list_nanopool->currentItem()->text();
         }
     }
 

@@ -2,6 +2,7 @@
 #define SELECTPOOL_H
 
 #include <QWidget>
+#include <QSettings>
 
 namespace Ui {
 class SelectPool;
@@ -21,6 +22,7 @@ public slots:
 
 private:
     Ui::SelectPool *ui;
+    QString m_pool;
 };
 
 #endif // SELECTPOOL_H
