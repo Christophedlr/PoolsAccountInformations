@@ -36,6 +36,7 @@ void NanopoolDisplay::downloadPoolData()
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadResult(QNetworkReply*)));
     manager->get(QNetworkRequest(QUrl(m_api+"/user/"+m_wallet)));
     manager->get(QNetworkRequest(QUrl(m_api+"/payments/"+m_wallet)));
+    manager->get(QNetworkRequest(QUrl(m_api+"/usersettings/"+m_wallet)));
 }
 
 void NanopoolDisplay::downloadResult(QNetworkReply* reply)
@@ -48,6 +49,8 @@ void NanopoolDisplay::downloadResult(QNetworkReply* reply)
             this->generalInfo(json["data"].toObject());
             this->workerInfo(json["data"].toObject());
 
+        } else if (json["data"].toObject().contains("payout")) {
+            ui->lb_payout->setText(QString::number(json["data"].toObject()["payout"].toDouble())+" "+m_currency);
         } else {
             this->paymentsInfo(json["data"].toArray());
         }
