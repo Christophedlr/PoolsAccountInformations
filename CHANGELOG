@@ -1,0 +1,9 @@
+Version 1.1.0
+--------------
+- Optimization of code
+- Add EUR and USD information for balance
+- Add EUR and USD information for unconfirmed balance
+- Add EUR and USD information for payout
+- Update README
+
+Information: actually, the calcule EUR and USD, used the Kraken stock exchange informations

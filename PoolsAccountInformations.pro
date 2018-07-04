@@ -50,4 +50,5 @@ FORMS += \
 DISTFILES += \
     .gitignore \
     LICENSE \
-    README.md
+    README.md \
+    CHANGELOG
