@@ -22,3 +22,4 @@ Click to **Select saved pool** for read list of all configurations for all liste
 Actually, only Nanopool is manage. Each pool has its own information.
 
 The information is reload every 10 minutes.
+The calculate EUR and USD equivalent for payout, balance and unconfirmed balance depend on Kraken stock exchange.
