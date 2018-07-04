@@ -123,6 +123,7 @@ void NanopoolDisplay::finishedDownloadPaymentsData()
 void NanopoolDisplay::finishedDownloadSettingsData()
 {
     QJsonDocument jsonUsersettings = QJsonDocument::fromJson(m_replyUsersettings->readAll());
+    m_payout = jsonUsersettings.object()["data"].toObject()["payout"].toDouble();
 
     if (jsonUsersettings["status"] == true) {
         ui->lb_payout->setText(QString::number(jsonUsersettings.object()["data"].toObject()["payout"].toDouble())+" "+m_currency);
@@ -145,12 +146,23 @@ void NanopoolDisplay::finishedDownloadPricesData()
     double eurUnconfirmedBalance = jsonPrice.object()["EUR"].toDouble()*m_unconfirmedBalande;
     double usdUnconfirmedBalance = jsonPrice.object()["USD"].toDouble()*m_unconfirmedBalande;
 
+    double eurPayout = jsonPrice.object()["EUR"].toDouble()*m_payout;
+    double usdPayout = jsonPrice.object()["USD"].toDouble()*m_payout;
+
     ui->lb_balance->setToolTip("<span style='color:black;font-weight: normal'>EUR: "+
                                QString::asprintf("%.2f", eurBalance) +", USD: "+
-                               QString::asprintf("%.2f", usdBalance)+"</span>");
+                               QString::asprintf("%.2f", usdBalance)+"</span>"
+                               );
+
     ui->lb_unconfirmed_balance->setToolTip("<span style='color:black;font-weight: normal'>EUR: "+
                                            QString::asprintf("%.2f", eurUnconfirmedBalance)+", USD: "+
-                                           QString::asprintf("%.2f", usdUnconfirmedBalance)+"</span>");
+                                           QString::asprintf("%.2f", usdUnconfirmedBalance)+"</span>"
+                                           );
+
+    ui->lb_payout->setToolTip("<span style='color:black;font-weight: normal'>EUR: "+
+                              QString::asprintf("%.2f", eurPayout)+", USD: "+
+                              QString::asprintf("%.2f", usdPayout)+"</span"
+                              );
 }
 
 NanopoolDisplay::~NanopoolDisplay()

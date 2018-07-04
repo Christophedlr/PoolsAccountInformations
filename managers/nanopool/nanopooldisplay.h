@@ -39,6 +39,7 @@ private:
 
     double m_balance;
     double m_unconfirmedBalande;
+    double m_payout;
 
     QNetworkReply* m_replyUser;
     QNetworkReply* m_replyPayments;
