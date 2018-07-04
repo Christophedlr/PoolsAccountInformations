@@ -16,26 +16,34 @@ class NanopoolDisplay : public QMainWindow
 
 public:
     explicit NanopoolDisplay(QString name, QWidget *parent = 0);
-    void generalInfo(QJsonObject json);
-    void workerInfo(QJsonObject json);
-    void paymentsInfo(QJsonArray payments);
     ~NanopoolDisplay();
 
 public slots:
-    void downloadResult(QNetworkReply* reply);
-    void downloadPoolData();
+    void finishedDownloadUserData();
+    void finishedDownloadPaymentsData();
+    void finishedDownloadSettingsData();
+    void finishedDownloadPricesData();
 
 private:
     Ui::NanopoolDisplay *ui;
     QNetworkAccessManager *manager;
+    NanopoolManager* nanopool;
+    QLabel* status;
+    QTimer* cyclicTime;
+
     QString m_wallet;
     QString m_api;
     QString m_addr;
     QString m_currency;
     QString m_pool;
-    NanopoolManager* nanopool;
-    QLabel* status;
-    QTimer* cyclicTime;
+
+    double m_balance;
+    double m_unconfirmedBalande;
+
+    QNetworkReply* m_replyUser;
+    QNetworkReply* m_replyPayments;
+    QNetworkReply* m_replyUsersettings;
+    QNetworkReply* m_replyPrice;
 };
 
 #endif // NANOPOOLDISPLAY_H

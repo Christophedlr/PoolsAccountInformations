@@ -71,7 +71,7 @@
        <item>
         <widget class="QLabel" name="lb_version">
          <property name="text">
-          <string>1.0</string>
+          <string>1.1</string>
          </property>
         </widget>
        </item>
