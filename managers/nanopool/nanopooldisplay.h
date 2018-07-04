@@ -23,6 +23,7 @@ public slots:
     void finishedDownloadPaymentsData();
     void finishedDownloadSettingsData();
     void finishedDownloadPricesData();
+    void downloadPoolData();
 
 private:
     Ui::NanopoolDisplay *ui;

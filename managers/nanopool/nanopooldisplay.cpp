@@ -29,12 +29,17 @@ NanopoolDisplay::NanopoolDisplay(QString name, QWidget *parent) :
     cyclicTime = new QTimer(this);
     connect(cyclicTime, SIGNAL(timeout()), this, SLOT(downloadPoolData()));
 
+    downloadPoolData();
+    cyclicTime->start(600000);
+}
+
+void NanopoolDisplay::downloadPoolData()
+{
     m_replyUser = manager->get(QNetworkRequest(QUrl(m_api+"/user/"+m_wallet)));
     connect(m_replyUser, SIGNAL(finished()), this, SLOT(finishedDownloadUserData()));
 
     QDateTime time = QDateTime::currentDateTime();
     status->setText("Last update: "+time.toString(Qt::SystemLocaleShortDate));
-    cyclicTime->start(600000);
 }
 
 /**
